@@ -9,7 +9,9 @@
     "dev": "nodemon server.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "init-db": "node scripts/initDatabase.js",
+    "check-db": "node scripts/checkConnection.js"
   },
   "keywords": ["ecommerce", "mern", "api"],
   "author": "",

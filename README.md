@@ -63,13 +63,49 @@ NODE_ENV=development
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/quality-furnitures
 # Or use MongoDB Atlas:
-# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/quality-furnitures
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/quality-furnitures?retryWrites=true&w=majority
 JWT_SECRET=your_jwt_secret_key_here_change_in_production
 JWT_EXPIRE=7d
 FRONTEND_URL=http://localhost:3000
 ```
 
-### 3. Frontend Setup
+**📚 For detailed MongoDB Atlas setup, see [MONGODB_SETUP.md](./MONGODB_SETUP.md)**
+
+### 2.1. Initialize Database
+
+After setting up your MongoDB connection, initialize the database:
+
+```bash
+cd backend
+npm run init-db
+```
+
+This creates all required collections and indexes.
+
+### 2.2. Verify Database Connection
+
+Test your database connection:
+
+```bash
+cd backend
+npm run check-db
+```
+
+### 3. Seed Sample Data (Optional)
+
+Populate your database with sample products and users:
+
+```bash
+cd backend
+npm run seed
+```
+
+This creates:
+- 8 sample furniture products
+- Admin user: `admin@qualityfurnitures.com` / `admin123`
+- Test user: `test@example.com` / `test123`
+
+### 4. Frontend Setup
 
 ```bash
 cd ../frontend
@@ -86,21 +122,26 @@ VITE_API_URL=http://localhost:5000/api
 
 ### Development Mode
 
-1. **Start MongoDB** (if using local installation):
+1. **Set up MongoDB**:
+   - **Local**: Start MongoDB service
+   - **Atlas**: Follow [MONGODB_SETUP.md](./MONGODB_SETUP.md) guide
+
+2. **Initialize Database** (first time only):
    ```bash
-   mongod
+   cd backend
+   npm run init-db
    ```
 
-2. **Seed the Database** (optional, for sample data):
+3. **Seed Sample Data** (optional):
    ```bash
    cd backend
    npm run seed
    ```
-   This will create sample products and test users:
-   - Admin: admin@qualityfurnitures.com / admin123
-   - User: test@example.com / test123
+   This creates sample products and test users:
+   - Admin: `admin@qualityfurnitures.com` / `admin123`
+   - User: `test@example.com` / `test123`
 
-3. **Start the Backend Server**:
+4. **Start the Backend Server**:
    ```bash
    cd backend
    npm run dev

@@ -71,9 +71,15 @@ io.on('connection', (socket) => {
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/quality-furnitures');
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    console.log(`📊 Database: ${conn.connection.name}`);
+    
+    // Verify collections exist (collections are auto-created by Mongoose on first save)
+    const collections = await conn.connection.db.listCollections().toArray();
+    console.log(`📦 Collections: ${collections.length} (users, products, carts, orders, reviews)`);
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    console.error(`💡 Make sure MongoDB is running and MONGODB_URI is correct in .env file`);
     process.exit(1);
   }
 };
